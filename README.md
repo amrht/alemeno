@@ -1,6 +1,10 @@
 # Alemeno
 
-Hey there, This is a prerequisite task by Alemeno, to start this, follow these steps:
+Hey there, This is a prerequisite task by Alemeno
+
+**Note:** I have worked around building the functionalities only, not the UI. Although I can work well with animations and beautiful UI/UX too, for this task, I am more focused on ensuring that the functionality works on a basic layout.
+
+To start this, follow these steps:
 
 1. Open the `course-backend` folder, change the database URL in `index.js`. Otherwise, you can contact me for access to the database from your IP Address.
 2. Import all the necessary node-modules.
