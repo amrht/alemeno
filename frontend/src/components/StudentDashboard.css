@@ -1,0 +1,66 @@
+.student-dashboard {
+  padding: 20px;
+}
+
+.student-search, .student-details {
+  text-align: center;
+}
+
+.student-search input {
+  margin: 10px;
+  padding: 10px;
+}
+
+.course-list {
+  list-style: none;
+  padding: 0;
+}
+
+.course-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.course-thumbnail img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.course-info {
+  margin-left: 15px;
+  text-align: left;
+}
+
+.progress-bar {
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  height: 10px;
+  width: 100%;
+  margin: 10px 0;
+  position: relative;
+}
+
+.progress {
+  background-color: #4caf50;
+  height: 100%;
+  width: 0;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+button {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 10px;
+  cursor: pointer;
+}
