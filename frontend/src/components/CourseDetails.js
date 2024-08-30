@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setStudent, registerCourse } from '../redux/studentSlice';
 import { io } from 'socket.io-client';
 import './CourseDetails.css';
 
 const CourseDetails = () => {
-  const { id } = useParams(); // course id from the URL
+  const { id } = useParams();
   const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(false); // New state for loading
   const student = useSelector(state => state.student.student);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:1337/api/courses/${id}`)
+    axios.get(`https://alemeno-pydf.onrender.com/api/courses/${id}`)
       .then(response => setCourse(response.data))
       .catch(error => console.log(error));
   }, [id]);
 
   useEffect(() => {
-    const socket = io('http://localhost:1337');
+    const socket = io('https://alemeno-pydf.onrender.com');
 
     // Join the room specific to the course
     socket.emit('joinRoom', id);
@@ -39,20 +41,22 @@ const CourseDetails = () => {
 
   const handleRegister = () => {
     if (student) {
-      axios.put(`http://localhost:1337/api/students/${student._id}/register-course`, { courseId: course._id })
+      setLoading(true); // Set loading to true when the register process starts
+      axios.put(`https://alemeno-pydf.onrender.com/api/students/${student._id}/register-course`, { courseId: course._id })
         .then(response => {
           dispatch(setStudent(response.data.student));
           dispatch(registerCourse(course._id));
           setCourse(response.data.course);
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log(error))
+        .finally(() => setLoading(false)); // Set loading to false when the process ends
     } else {
       alert('Please enter a valid student ID on the dashboard to register.');
     }
   };
 
   const handleLike = () => {
-    axios.put(`http://localhost:1337/api/courses/${course._id}/like`)
+    axios.put(`https://alemeno-pydf.onrender.com/api/courses/${course._id}/like`)
       .then(response => {
         setCourse(prevCourse => ({
           ...prevCourse,
@@ -60,6 +64,10 @@ const CourseDetails = () => {
         }));
       })
       .catch(error => console.log(error));
+  };
+
+  const handleBack = () => {
+    navigate('/courses');
   };
 
   if (!course) {
@@ -70,6 +78,10 @@ const CourseDetails = () => {
 
   return (
     <div className="course-details">
+      <button onClick={handleBack} className="back-button">
+        ← Back to Courses
+      </button>
+      
       <img src={course.thumbnail} alt={course.name} className="course-details-thumbnail" />
       <h2>{course.name}</h2>
       <p><strong>Instructor:</strong> {course.instructor}</p>
@@ -101,7 +113,7 @@ const CourseDetails = () => {
         )}
       </div>
 
-      <div className="likes-section" style={{marginTop:'10px'}}>
+      <div className="likes-section" style={{ marginTop: '10px' }}>
         <button onClick={handleLike} className="like-button">
           👍 Like
         </button>
@@ -109,8 +121,8 @@ const CourseDetails = () => {
       </div>
 
       {!isRegistered && (
-        <button onClick={handleRegister} className="register-button">
-          Register for this course
+        <button onClick={handleRegister} className="register-button" disabled={loading}>
+          {loading ? 'Registering...' : 'Register for this course'}
         </button>
       )}
       {isRegistered && (

@@ -15,7 +15,7 @@ const StudentDashboard = () => {
   const getRandomProgress = () => Math.floor(Math.random() * (70 - 30 + 1)) + 30;
 
   const handleSearch = () => {
-    axios.get(`http://localhost:1337/api/students/${studentId}`)
+    axios.get(`https://alemeno-pydf.onrender.com/api/students/${studentId}`)
       .then(response => dispatch(setStudent(response.data)))
       .catch(error => console.log(error));
   };
@@ -56,22 +56,24 @@ const StudentDashboard = () => {
           <p><strong>Email:</strong> {student.email}</p>
           <h3>Registered Courses</h3>
           <ul className="course-list">
-            {student.courses.map(course => (
-              <li key={course._id} className="course-item">
-                <div className="course-thumbnail">
-                  <img src={course.thumbnail} alt={course.name} />
-                </div>
-                <div className="course-info">
-                  <h4>{course.name}</h4>
-                  <p><strong>Instructor:</strong> {course.instructor}</p>
-                  <p><strong>Due Date:</strong> {course.dueDate}</p>
-                  <div className="progress-bar">
-                    <div className="progress" style={{ width: `${course.progress || getRandomProgress()}%` }}></div>
+            {student.courses
+              .filter(course => course.name && course.instructor)
+              .map(course => (
+                <li key={course._id} className="course-item">
+                  <div className="course-thumbnail">
+                    <img src={course.thumbnail} alt={course.name} />
                   </div>
-                  <button onClick={() => handleMarkCompleted(course._id)}>Mark as Completed</button>
-                </div>
-              </li>
-            ))}
+                  <div className="course-info">
+                    <h4>{course.name}</h4>
+                    <p><strong>Instructor:</strong> {course.instructor}</p>
+                    <p><strong>Due Date:</strong> {course.dueDate}</p>
+                    <div className="progress-bar">
+                      <div className="progress" style={{ width: `${course.progress || getRandomProgress()}%` }}></div>
+                    </div>
+                    <button onClick={() => handleMarkCompleted(course._id)}>Mark as Completed</button>
+                  </div>
+                </li>
+              ))}
           </ul>
           <button onClick={handleViewCourses}>View Courses</button>
           <button onClick={handleLogout}>Logout</button>

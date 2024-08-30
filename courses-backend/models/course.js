@@ -19,7 +19,7 @@ const courseSchema = new mongoose.Schema({
     },
   ],
   students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
-  likes: { type: Number, default: 0 }, // Add likes field
+  likes: { type: Number, default: 0 },
 });
 
 const Course = mongoose.model('Course', courseSchema);

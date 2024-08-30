@@ -1,12 +1,12 @@
 .course-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px; /* Space between the cards */
+  gap: 20px;
 }
 
 .course-card {
-  flex: 1 1 calc(25% - 20px); /* Two cards per line, with space between */
-  box-sizing: border-box; /* Ensures padding is included in the width */
+  flex: 1 1 calc(25% - 20px);
+  box-sizing: border-box;
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 5px;
@@ -18,7 +18,7 @@
 
 @media (max-width: 768px) {
   .course-card {
-    flex: 1 1 100%; /* One card per line on mobile */
+    flex: 1 1 100%; 
   }
 }
 

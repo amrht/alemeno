@@ -1,4 +1,3 @@
-// src/components/CourseList.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CourseCard from './CourseCard';
@@ -9,7 +8,7 @@ const CourseList = () => {
   const [filteredCourses, setFilteredCourses] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:1337/api/courses')
+    axios.get('https://alemeno-pydf.onrender.com/api/courses')
       .then(response => {
         setCourses(response.data);
         setFilteredCourses(response.data);

@@ -4,12 +4,7 @@ const Student = require('../models/student');
 
 const mongoUri = 'mongodb+srv://arhayat7:UDNhuMzrHvsr3IeV@cluster0.jpujb.mongodb.net/courses?retryWrites=true&w=majority&appName=Cluster0';
 
-mongoose.connect(mongoUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 30000, // Increase server selection timeout to 30 seconds
-  socketTimeoutMS: 45000, // Increase socket timeout to 45 seconds
-});
+mongoose.connect(mongoUri);
 
 const image = "https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149330605.jpg"
 
